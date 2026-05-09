@@ -2,11 +2,12 @@
 - [ ] Bug Report — 버그 신고
 - [ ] Feature Request — 기능 제안
 
+
 ###  1. Bug Report
 
 발생한 버그를 한 줄로 설명해 주세요.
 
-### 재현 방법
+### - 재현 방법
 
 1.
 2.
