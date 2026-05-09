@@ -1,9 +1,6 @@
-# Issue
-
 ## 이슈 타입
 - [ ] Bug Report — 버그 신고
 - [ ] Feature Request — 기능 제안
-
 
 ## 1. Bug Report
 
