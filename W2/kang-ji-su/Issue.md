@@ -1,8 +1,8 @@
-## 이슈 타입  
+###  이슈 타입  
 - [ ] Bug Report — 버그 신고
 - [ ] Feature Request — 기능 제안
 
-## 1. Bug Report
+###  1. Bug Report
 
 발생한 버그를 한 줄로 설명해 주세요.
 
@@ -26,7 +26,7 @@
 ```
 
 
-## 2. Feature Request
+###  2. Feature Request
 
 제안하는 기능을 한 줄로 설명해 주세요.
 
