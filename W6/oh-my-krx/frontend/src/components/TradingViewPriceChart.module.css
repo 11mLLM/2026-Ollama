@@ -1,0 +1,1186 @@
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  background: var(--color-bg-base);
+  overflow: hidden;
+  animation: fadeIn var(--transition-fast) forwards;
+}
+
+.chartPane {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--color-border);
+  padding: 80px 24px 40px 24px;
+}
+
+.chart {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 5;
+}
+
+.chartWatermark {
+  position: absolute;
+  left: 32px;
+  bottom: 92px;
+  z-index: 2;
+  pointer-events: none;
+  display: grid;
+  gap: 4px;
+  max-width: min(620px, calc(100% - 64px));
+  opacity: 0.16;
+}
+
+.chartWatermark span {
+  color: var(--color-text-tertiary);
+  font-size: 1.1rem;
+  font-weight: 850;
+}
+
+.chartWatermark strong {
+  color: var(--color-text-primary);
+  font-size: clamp(3rem, 7vw, 5.8rem);
+  font-weight: 950;
+  line-height: 0.95;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.chartWatermark b {
+  font-size: 1.7rem;
+  font-weight: 900;
+}
+
+.chartLineLegend {
+  display: flex;
+  flex-wrap: wrap; /* 모바일에서 자동 개행 유도 */
+  gap: 16px;
+  margin-top: 12px;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  font-weight: 700;
+  justify-content: flex-start; /* 중앙 정렬 대신 왼쪽 정렬하여 플로팅 버튼과의 겹침 해소 */
+  padding-left: var(--spacing-4);
+}
+
+.chartLineLegend span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chartLineLegend i {
+  display: inline-block;
+  width: 12px;
+  height: 0;
+  border-top-width: 2.5px;
+  border-top-style: solid;
+}
+
+.ma20Dot { border-color: #3b82f6; border-top-style: dashed !important; }
+.ma60Dot { border-color: #f59e0b; border-top-style: dashed !important; }
+.volumeDot { border-color: rgba(255, 255, 255, 0.25); }
+
+.chartError {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(244, 63, 94, 0.1);
+  border: 1px solid var(--color-positive);
+  color: #fff;
+  padding: 16px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 800;
+  box-shadow: var(--shadow-float);
+}
+
+.up {
+  color: var(--color-positive);
+}
+
+.down {
+  color: var(--color-negative);
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 420;
+  width: min(280px, calc(100vw - 24px));
+  background: rgba(14, 18, 30, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.38);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  padding: 14px;
+  pointer-events: none;
+}
+
+.tooltipHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tooltipHeader span {
+  color: var(--color-text-tertiary);
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.tooltipHeader strong {
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.tooltipBulletList,
+.tooltipAiList {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 7px;
+}
+
+.tooltipBulletList li,
+.tooltipAiList li {
+  color: var(--color-text-secondary);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  font-weight: 750;
+  word-break: keep-all;
+}
+
+.tooltipAi {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(49, 130, 246, 0.18);
+}
+
+.tooltipAiHeader {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.tooltipAiHeader b {
+  color: var(--color-text-primary);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.tooltipAiHeader span {
+  margin-left: auto;
+  color: var(--color-accent);
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+/* Premium Toss "AI Investment Assistant" Sidebar */
+.decisionSidebar {
+  background: rgba(19, 24, 36, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 96px var(--spacing-5) var(--spacing-6) var(--spacing-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  overflow-y: auto;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.25);
+  z-index: 10;
+  border-left: 1px solid var(--color-border);
+  animation: springUp var(--transition-normal) forwards;
+  /* 텍스트 짤림 방지 및 모바일 가독성 극대화 */
+  word-break: keep-all;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.decisionSidebar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.decisionSidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 99px;
+}
+
+/* Sidebar Sections */
+.sidebarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--spacing-4);
+}
+
+.sidebarHeader span {
+  font-size: 0.76rem;
+  color: var(--color-text-tertiary);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sidebarHeader strong {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--color-text-primary);
+  margin-top: 2px;
+}
+
+.sidebarHeader button {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 6px 14px;
+  border-radius: var(--radius-round);
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--color-text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.sidebarHeader button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-text-primary);
+  transform: translateY(-1px);
+}
+
+/* Big Bold Toss Price Card */
+.sidebarPriceCard {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-5);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebarPriceCard span {
+  font-size: 0.78rem;
+  color: var(--color-text-tertiary);
+  font-weight: 750;
+}
+
+.sidebarPriceCard strong {
+  font-size: 2.3rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.sidebarPriceCard em {
+  font-size: 0.95rem;
+  font-style: normal;
+  font-weight: 850;
+}
+
+.sidebarPriceCard em.pos { color: var(--color-positive); }
+.sidebarPriceCard em.neg { color: var(--color-negative); }
+
+/* Premium Toss "Is this stock buyable?" Card */
+.sidebarDecisionCard {
+  background: linear-gradient(135deg, rgba(49, 130, 246, 0.08), rgba(28, 34, 52, 0.4));
+  border: 1px solid rgba(49, 130, 246, 0.2);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-5);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  position: relative;
+  animation: springUp var(--transition-normal) forwards;
+}
+
+.sidebarDecisionBuy {
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.08), rgba(28, 34, 52, 0.4));
+  border-color: rgba(244, 63, 94, 0.25);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.sidebarDecisionCard span {
+  font-size: 0.8rem;
+  color: #93c5fd;
+  font-weight: 850;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.sidebarDecisionBuy span {
+  color: #fecaca;
+}
+
+.sidebarDecisionCard strong {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--color-text-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sidebarDecisionCard p {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  font-weight: 750;
+  margin: 0;
+}
+
+.sidebarActionBox {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-md);
+  padding: 12px var(--spacing-4);
+  margin-top: 4px;
+}
+
+.sidebarActionBox b {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--color-text-tertiary);
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.sidebarActionBox span {
+  color: var(--color-text-primary);
+  font-size: 0.82rem;
+  font-weight: 750;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+/* Toss Style Segmented Action Buttons */
+.sidebarActionButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: var(--spacing-2);
+}
+
+.sidebarActionButtons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 46px;
+  border-radius: var(--radius-round);
+  font-size: 0.84rem;
+  font-weight: 800;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  min-width: 0;
+}
+
+.sidebarActionButtons button span {
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.primaryAiAction {
+  background: var(--color-accent);
+  border: 1px solid transparent;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(49, 130, 246, 0.4);
+}
+
+.primaryAiAction:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.primaryAiAction:active {
+  transform: scale(0.96);
+}
+
+.briefAction {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--color-text-primary);
+}
+
+.briefAction:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-1px);
+}
+
+.assistActionActive {
+  box-shadow: 0 0 0 2px var(--color-accent) !important;
+  background: rgba(49, 130, 246, 0.15) !important;
+  color: var(--color-accent) !important;
+}
+
+/* AI Help Interactive Expanded Panel */
+.inlineAssistPanel {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-5);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: springUp var(--transition-normal) forwards;
+}
+
+.assistPanelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 10px;
+}
+
+.assistPanelHeader span {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  font-weight: 800;
+}
+
+.assistPanelHeader strong {
+  font-size: 1rem;
+  color: var(--color-accent);
+  font-weight: 900;
+  background: rgba(49, 130, 246, 0.12);
+  padding: 4px 10px;
+  border-radius: var(--radius-round);
+}
+
+.inlineAssistPanel p {
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Toss Style Grid for Timing */
+.assistTimingGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.assistTimingGrid article {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.assistTimingGrid b {
+  font-size: 0.72rem;
+  color: var(--color-text-tertiary);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.assistTimingGrid span {
+  font-size: 0.78rem;
+  color: var(--color-text-primary);
+  font-weight: 750;
+  line-height: 1.4;
+  word-break: keep-all;
+}
+
+/* AI 3 Feature Cards */
+.aiFeatureGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.aiFeatureGrid article {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-md);
+  padding: 12px var(--spacing-4);
+  transition: all var(--transition-fast);
+}
+
+.aiFeatureGrid article:hover {
+  background: rgba(49, 130, 246, 0.05);
+  border-color: rgba(49, 130, 246, 0.15);
+  transform: translateX(4px);
+}
+
+.aiFeatureGrid span {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--color-text-tertiary);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.aiFeatureGrid strong {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--color-text-primary);
+  font-weight: 850;
+  margin: 2px 0 4px 0;
+}
+
+.aiFeatureGrid p {
+  font-size: 0.78rem;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+/* News Sentiment Card */
+.sidebarNewsCard {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-4);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebarNewsCard span {
+  font-size: 0.72rem;
+  color: var(--color-text-tertiary);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.sidebarNewsCard strong {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--color-text-primary);
+}
+
+.sidebarNewsCard p {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  font-weight: 750;
+  margin: 0;
+}
+
+.sidebarNewsCard em {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+  font-style: normal;
+  line-height: 1.4;
+}
+
+/* Buy & Risk Criteria List */
+.sidebarZoneList {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-4);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sidebarZoneList span {
+  font-size: 0.72rem;
+  color: var(--color-text-tertiary);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.sidebarZoneList article {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding-bottom: 8px;
+}
+
+.sidebarZoneList article:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.sidebarZoneList b {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  font-weight: 750;
+}
+
+.sidebarZoneList strong {
+  font-size: 0.85rem;
+  color: var(--color-text-primary);
+  font-weight: 850;
+}
+
+.sidebarZoneList em {
+  grid-column: 1 / -1;
+  font-size: 0.74rem;
+  color: var(--color-text-tertiary);
+  font-style: normal;
+  margin-top: 1px;
+}
+
+/* Legend & Latest Pill Overlay */
+/* Legend & Latest Pill Overlay (PC: 겹침 철저히 방지하여 2단으로 정갈하게 배치) */
+.legend {
+  position: absolute;
+  bottom: 24px;
+  left: 32px;
+  display: flex;
+  gap: 12px;
+  background: rgba(19, 24, 36, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-round);
+  padding: 6px 16px;
+  z-index: 100;
+  font-size: 0.76rem;
+  color: var(--color-text-secondary);
+  font-weight: 800;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.legend span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.legend i {
+  display: inline-block;
+  width: 10px;
+  height: 0;
+  border-top-width: 2px;
+  border-top-style: solid;
+}
+
+.ma5Dot { border-color: rgba(255, 255, 255, 0.7); }
+.ma20Dot { border-color: #3b82f6; border-top-style: dashed !important; }
+.ma60Dot { border-color: #f59e0b; border-top-style: dashed !important; }
+.volumeDot { border-color: rgba(255, 255, 255, 0.2); }
+
+.latestBar {
+  position: absolute;
+  bottom: 64px;
+  left: 32px;
+  background: rgba(19, 24, 36, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-round);
+  padding: 6px 16px;
+  z-index: 100;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  font-weight: 800;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.latestBar strong {
+  color: var(--color-text-primary);
+  font-weight: 900;
+}
+
+.latestBar em {
+  color: var(--color-text-tertiary);
+  font-style: normal;
+}
+
+/* Beautiful Toss-style Interactive Brief Modal */
+.briefModalLayer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 13, 20, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn var(--transition-fast) forwards;
+}
+
+.briefModal {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  width: 90%;
+  max-width: 580px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-float);
+  animation: springUp var(--transition-normal) forwards;
+  overflow: hidden;
+}
+
+.briefModalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-5) var(--spacing-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.briefModalHeader span {
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+  font-weight: 800;
+}
+
+.briefModalHeader strong {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--color-text-primary);
+  margin-top: 2px;
+}
+
+.briefModalHeader button {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px 18px;
+  border-radius: var(--radius-round);
+  font-size: 0.85rem;
+  font-weight: 800;
+  transition: all var(--transition-fast);
+}
+
+.briefModalHeader button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.briefTextBlock {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-6);
+  font-family: inherit;
+  font-size: 0.92rem;
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  white-space: pre-wrap;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.briefTextBlock::-webkit-scrollbar {
+  width: 5px;
+}
+
+.briefTextBlock::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 99px;
+}
+
+.briefModalNote {
+  background: rgba(49, 130, 246, 0.08);
+  border-top: 1px solid var(--color-border);
+  padding: 14px var(--spacing-6);
+  font-size: 0.8rem;
+  color: #bfdbfe;
+  font-weight: 750;
+  line-height: 1.45;
+  margin: 0;
+  word-break: keep-all;
+}
+
+/* Toss Brand Badge (PC: 사이드바 및 범례와 절대 겹치지 않는 우측 하단 구석 배치) */
+.brandBadge {
+  position: absolute;
+  bottom: 24px;
+  right: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  pointer-events: none;
+  opacity: 0.25;
+}
+
+.brandBadge span {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.brandBadge strong {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  margin-top: 1px;
+}
+
+/* Mobile Chart Lens (Bottom Floating Summary Bar) */
+.mobileChartLens {
+  display: none;
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  background: rgba(19, 24, 36, 0.96);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 12px var(--spacing-4);
+  box-shadow: var(--shadow-float);
+  z-index: 1200;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  animation: springUp var(--transition-normal) forwards;
+}
+
+.mobileChartLens span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: center;
+}
+
+.mobileChartLens b {
+  font-size: 0.68rem;
+  color: var(--color-text-tertiary);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.mobileChartLens strong {
+  font-size: 0.78rem;
+  color: var(--color-text-primary);
+  font-weight: 850;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 1024px) {
+  .stage {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto; /* 차트와 사이드바를 세로 2행으로 안전하게 묶음 */
+    overflow-y: auto !important; /* 모바일에서 전체 세로 스크롤을 무조건 허용 */
+    overflow-x: hidden;
+    height: 100%;
+  }
+
+  .chartPane {
+    border-right: 0;
+    padding: 140px 16px 20px 16px;
+    height: 500px; /* 차트 찌그러짐 방지용 고정 높이 지정 */
+    min-height: 500px;
+  }
+
+  .chartWatermark {
+    left: 22px;
+    bottom: 66px;
+    max-width: calc(100% - 44px);
+    opacity: 0.14;
+  }
+
+  .chartWatermark span {
+    font-size: 0.9rem;
+  }
+
+  .chartWatermark strong {
+    font-size: clamp(2.3rem, 13vw, 3.7rem);
+    white-space: normal;
+  }
+
+  .chartWatermark b {
+    font-size: 1.25rem;
+  }
+
+  .decisionSidebar {
+    display: flex !important; /* 모바일에서 숨기지 않고 드러냄 */
+    width: 100% !important;
+    height: auto !important;
+    padding: 24px var(--spacing-5) 120px var(--spacing-5) !important; /* 플로팅 버튼과의 중첩을 피해 넉넉한 하단 마진 확보 */
+    overflow-y: visible !important; /* 개별 스크롤 해제 후 부모 스크롤 위임 */
+    border-left: 0 !important;
+    border-top: 1px solid var(--color-border);
+    box-shadow: none !important;
+    background: var(--color-bg-surface);
+  }
+
+  .mobileChartLens {
+    display: none !important; /* 중복 렌즈 HUD는 미노출 처리 */
+  }
+
+  /* 모바일 가시성을 극대화하기 위해 중복되거나 차트를 가리는 HUD 요소를 스마트하게 숨김 */
+  .legend {
+    display: none !important;
+  }
+
+  .latestBar {
+    display: none !important;
+  }
+
+  .brandBadge {
+    display: none !important;
+  }
+}
+
+/* Premium Toss Style Sidebar Header Ticker Card */
+.sidebarHeaderCard {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-5);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.sidebarHeaderTitle span {
+  font-size: 0.72rem;
+  color: var(--color-text-tertiary);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sidebarHeaderTitle strong {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--color-text-primary);
+  margin-top: 2px;
+}
+
+.sidebarHeaderPrice {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebarPriceRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.bigPrice {
+  font-size: 2.1rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.changeRateBadge {
+  font-size: 0.82rem;
+  font-weight: 850;
+  padding: 4px 10px;
+  border-radius: var(--radius-round);
+}
+
+.changeRateBadge.pos {
+  background: rgba(34, 197, 94, 0.15);
+  color: var(--color-positive);
+}
+
+.changeRateBadge.neg {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--color-negative);
+}
+
+.asOfDate {
+  font-size: 0.72rem;
+  color: var(--color-text-tertiary);
+  font-weight: 750;
+}
+
+/* Sidebar Daily Move Card */
+.dailyMoveCard {
+  background: rgba(255, 255, 255, 0.018);
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  border-radius: var(--radius-md);
+  padding: 14px var(--spacing-4);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dailyMoveHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.dailyMoveHeader span {
+  font-size: 0.76rem;
+  color: var(--color-text-secondary);
+  font-weight: 850;
+}
+
+.dailyMoveHeader strong {
+  font-size: 1.15rem;
+  font-weight: 950;
+}
+
+.dailyMoveCard p,
+.dailyMoveCard small {
+  margin: 0;
+  color: var(--color-text-tertiary);
+  font-size: 0.76rem;
+  line-height: 1.45;
+  font-weight: 750;
+  word-break: keep-all;
+}
+
+.dailyMoveCard p {
+  color: var(--color-text-secondary);
+}
+
+/* Glassmorphism AI Detail Modal Popup */
+.aiModal {
+  background: rgba(19, 24, 38, 0.85);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  width: 92%;
+  max-width: 720px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  animation: springUp 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  overflow: hidden;
+}
+
+.aiModalBuy {
+  border-color: rgba(244, 63, 94, 0.25);
+  box-shadow: 0 20px 50px rgba(244, 63, 94, 0.1);
+}
+
+.aiModalSell {
+  border-color: rgba(49, 130, 246, 0.25);
+  box-shadow: 0 20px 50px rgba(49, 130, 246, 0.1);
+}
+
+.modalDecisionBadge {
+  font-size: 0.9rem;
+  font-weight: 900;
+  padding: 4px 10px;
+  border-radius: var(--radius-round);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-text-secondary);
+}
+
+.modalDecisionBuy {
+  color: var(--color-positive);
+  background: rgba(244, 63, 94, 0.12);
+}
+
+.modalDecisionSell {
+  color: var(--color-negative);
+  background: rgba(239, 68, 68, 0.12);
+}
+
+.aiModalBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-6);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.aiModalBody::-webkit-scrollbar {
+  width: 5px;
+}
+
+.aiModalBody::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 99px;
+}
+
+.aiModalDesc {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+  font-weight: 750;
+  background: rgba(255, 255, 255, 0.01);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--color-accent);
+}
+
+:global([data-theme="light"]) .stage {
+  background: var(--color-bg-base);
+}
+
+:global([data-theme="light"]) .chartPane {
+  background: linear-gradient(180deg, #ffffff 0%, #f7f9fc 100%);
+  border-color: rgba(25, 31, 40, 0.08);
+}
+
+:global([data-theme="light"]) .decisionSidebar {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-color: rgba(25, 31, 40, 0.08);
+  box-shadow: -12px 0 30px rgba(15, 23, 42, 0.08);
+}
+
+:global([data-theme="light"]) .sidebarHeaderCard,
+:global([data-theme="light"]) .dailyMoveCard,
+:global([data-theme="light"]) .sidebarDecisionCard,
+:global([data-theme="light"]) .sidebarNewsCard,
+:global([data-theme="light"]) .sidebarZoneList article,
+:global([data-theme="light"]) .inlineAssistPanel,
+:global([data-theme="light"]) .assistTimingGrid article,
+:global([data-theme="light"]) .aiModalDesc {
+  background: rgba(25, 31, 40, 0.035);
+  border-color: rgba(25, 31, 40, 0.07);
+}
+
+:global([data-theme="light"]) .briefAction,
+:global([data-theme="light"]) .briefModalHeader button {
+  background: #ffffff;
+  border-color: rgba(25, 31, 40, 0.08);
+  color: var(--color-text-primary);
+}
+
+:global([data-theme="light"]) .briefAction:hover {
+  background: rgba(25, 31, 40, 0.045);
+}
+
+:global([data-theme="light"]) .tooltip,
+:global([data-theme="light"]) .aiModal {
+  background: rgba(255, 255, 255, 0.97);
+  border-color: rgba(25, 31, 40, 0.08);
+  box-shadow: 0 18px 44px rgba(15, 23, 42, 0.12);
+}
+
+:global([data-theme="light"]) .briefModalLayer {
+  background: rgba(15, 23, 42, 0.2);
+}
+
+:global([data-theme="light"]) .briefModalNote,
+:global([data-theme="light"]) .briefTextBlock {
+  background: rgba(25, 31, 40, 0.035);
+}
+
+:global([data-theme="light"]) .chartWatermark {
+  opacity: 0.1;
+}

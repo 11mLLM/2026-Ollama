@@ -1,0 +1,63 @@
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes springUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.96);
+  }
+  70% {
+    transform: translateY(-4px) scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slideDownSearch {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) translateX(-50%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateX(-50%);
+  }
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0 0 var(--color-accent-glow); }
+  70% { box-shadow: 0 0 0 10px rgba(49, 130, 246, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(49, 130, 246, 0); }
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.92); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fade-in {
+  animation: fadeIn var(--transition-fast) forwards;
+}
+
+.animate-spring-up {
+  animation: springUp var(--transition-normal) forwards;
+}
+
+.animate-pop-in {
+  animation: popIn var(--transition-fast) forwards;
+}
+
+.shimmer-bg {
+  background: linear-gradient(90deg, #131824 25%, #1c2234 50%, #131824 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
