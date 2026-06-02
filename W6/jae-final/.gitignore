@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local runtime data (Chroma vector store, embeddings cache)
+.data/
+*.sqlite3
+
+# Codex harness / report artifacts (생성물이라 커밋하지 않음)
+.codex/
+
+# Generated summaries
+reports/*.out.md
+summary-*.md
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
