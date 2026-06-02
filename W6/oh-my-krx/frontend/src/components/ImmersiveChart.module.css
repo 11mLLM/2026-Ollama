@@ -1,0 +1,1243 @@
+.container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-base);
+  overflow: hidden;
+}
+
+.chartWrapper {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  z-index: 1;
+}
+
+/* Hero Info Overlay (Background Watermark) */
+.heroInfo {
+  position: absolute;
+  top: 50%;
+  left: 8%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.05;
+  transition: opacity var(--transition-slow);
+}
+
+.heroCode {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  letter-spacing: 0.05em;
+}
+
+.heroName {
+  font-size: 9rem;
+  font-weight: 950;
+  line-height: 0.95;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  letter-spacing: -0.03em;
+}
+
+.heroRate {
+  font-size: 3.5rem;
+  font-weight: 900;
+  margin-top: var(--spacing-3);
+}
+
+.heroRate.pos { color: var(--color-positive); }
+.heroRate.neg { color: var(--color-negative); }
+
+/* Tooltips & Glass Panels */
+.tooltip {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+  padding: var(--spacing-5);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-float);
+  color: var(--color-text-primary);
+  min-width: 240px;
+}
+
+/* Top Toss Unified Toolbar (스크롤 겹침 완전 차단형 sticky 상단바) */
+.topToolbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 76px;
+  background: rgba(10, 13, 20, 0.98);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  gap: var(--spacing-4);
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2000;
+  padding: 0 32px;
+  pointer-events: auto;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Interval Pill Selector */
+.intervalGroup {
+  flex: 0 0 auto;
+  display: flex;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-round);
+  padding: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.intervalBtn {
+  padding: 6px 16px;
+  font-size: 0.82rem;
+  font-weight: 750;
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-round);
+  transition: all var(--transition-fast);
+}
+
+.intervalBtn:hover {
+  color: var(--color-text-primary);
+}
+
+.intervalBtn:active {
+  transform: scale(0.95);
+}
+
+.intervalActive {
+  background: var(--color-accent);
+  color: var(--color-text-primary) !important;
+  box-shadow: 0 4px 12px rgba(49, 130, 246, 0.4);
+}
+
+.intervalStatus {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 10px;
+  color: var(--color-text-tertiary);
+  font-size: 0.76rem;
+  font-weight: 800;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Premium Dynamic Search Bar */
+.quickSearchForm {
+  flex: 0 1 360px;
+  min-width: 240px;
+  display: grid;
+  grid-template-columns: auto minmax(100px, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-round);
+  background: rgba(255, 255, 255, 0.02);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+  padding: 2px 4px 2px 14px;
+  transition: all var(--transition-fast);
+}
+
+.quickSearchForm:focus-within {
+  border-color: var(--color-accent);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.quickSearchForm label {
+  color: var(--color-text-secondary);
+  font-size: 0.76rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.quickSearchForm input {
+  min-width: 0;
+  height: 32px;
+  border: 0;
+  background: transparent;
+  color: var(--color-text-primary);
+  font-size: 0.88rem;
+  font-weight: 800;
+  outline: none;
+}
+
+.quickSearchForm input::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.quickSearchForm button {
+  height: 32px;
+  border-radius: var(--radius-round);
+  background: var(--color-accent);
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 0 14px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(49, 130, 246, 0.3);
+  transition: all var(--transition-fast);
+}
+
+.quickSearchForm button:hover {
+  filter: brightness(1.1);
+}
+
+.quickSearchForm em {
+  grid-column: 1 / -1;
+  color: var(--color-positive);
+  font-size: 0.72rem;
+  font-style: normal;
+  font-weight: 800;
+  padding-left: 4px;
+}
+
+
+
+/* Action Dropdown Group (Pill Buttons) */
+.actionGroup {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-3);
+  min-width: 0;
+  flex: 1 1 auto;
+  pointer-events: auto;
+}
+
+.actionItem {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.actionBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 18px;
+  background: rgba(19, 24, 36, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-round);
+  color: var(--color-text-primary);
+  font-size: 0.88rem;
+  font-weight: 800;
+  white-space: nowrap;
+  box-shadow: var(--shadow-float);
+  transition: all var(--transition-fast);
+}
+
+.actionBtn:hover {
+  background: rgba(28, 34, 52, 0.9);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.actionBtn:active {
+  transform: scale(0.96);
+}
+
+.actionBtnActive {
+  background: var(--color-bg-elevated);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px var(--color-accent-glow), var(--shadow-float);
+}
+
+.chevron {
+  font-size: 0.65rem;
+  color: var(--color-text-tertiary);
+  margin-left: 2px;
+}
+
+/* Premium Toss Dropdown Panels */
+.dropdownPanel {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  z-index: 2600;
+  isolation: isolate;
+  background: rgba(19, 24, 36, 0.98);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-5);
+  width: 380px;
+  max-height: calc(100dvh - 110px);
+  overflow-y: auto;
+  box-shadow: var(--shadow-float);
+  animation: springUp var(--transition-normal) forwards;
+  transform-origin: top left;
+}
+
+.dropdownPanel::-webkit-scrollbar {
+  width: 5px;
+}
+
+.dropdownPanel::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 99px;
+}
+
+.dropdownRight {
+  left: auto;
+  right: 0;
+  transform-origin: top right;
+}
+
+/* Beautiful Stock Selector List (Toss Chips Style) */
+.stockPanelHeader {
+  display: grid;
+  gap: 8px;
+  margin-bottom: var(--spacing-4);
+}
+
+.stockPanelHeader span {
+  color: var(--color-text-tertiary);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stockPanelHeader strong {
+  color: var(--color-text-primary);
+  font-size: 1.15rem;
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.stockSaveNotice {
+  color: var(--color-text-secondary);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+.stockList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: var(--spacing-3);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--spacing-4);
+}
+
+.stockOption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px var(--spacing-4);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  text-align: left;
+  transition: all var(--transition-fast);
+}
+
+.stockOption:hover {
+  background: rgba(49, 130, 246, 0.08);
+  border-color: rgba(49, 130, 246, 0.2);
+  transform: translateX(4px);
+}
+
+.stockOptionActive {
+  background: rgba(49, 130, 246, 0.12) !important;
+  border-color: var(--color-accent) !important;
+}
+
+.stockOption strong {
+  display: block;
+  color: var(--color-text-primary);
+  font-size: 0.95rem;
+  font-weight: 850;
+}
+
+.stockOption em {
+  display: block;
+  color: var(--color-text-secondary);
+  font-size: 0.78rem;
+  font-style: normal;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.stockOption b {
+  color: var(--color-accent);
+  font-size: 0.85rem;
+  font-weight: 850;
+  background: rgba(49, 130, 246, 0.15);
+  padding: 4px 10px;
+  border-radius: var(--radius-round);
+}
+
+.stockOptionActive b {
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
+/* Tabs & Guide Sections */
+.panelTabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: var(--spacing-4);
+  background: rgba(0, 0, 0, 0.2);
+  padding: 4px;
+  border-radius: var(--radius-round);
+}
+
+.panelTabs button {
+  flex: 1;
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 8px 12px;
+  border-radius: var(--radius-round);
+  text-align: center;
+  transition: all var(--transition-fast);
+}
+
+.panelTabs button.activeTab {
+  background: var(--color-bg-elevated);
+  color: var(--color-text-primary);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.panelBody {
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* Toss Checklist Grid & Cue */
+.chartCueGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: var(--spacing-4);
+}
+
+.chartCueGrid button {
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--color-text-primary);
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 12px 10px;
+  text-align: center;
+  transition: all var(--transition-fast);
+}
+
+.chartCueGrid button:hover {
+  background: rgba(49, 130, 246, 0.08);
+  border-color: rgba(49, 130, 246, 0.2);
+  transform: translateY(-1px);
+}
+
+.beginnerList {
+  display: grid;
+  gap: 10px;
+  margin-bottom: var(--spacing-3);
+}
+
+.beginnerList li {
+  position: relative;
+  color: var(--color-text-primary);
+  font-size: 0.88rem;
+  font-weight: 800;
+  padding-left: 24px;
+  line-height: 1.4;
+}
+
+.beginnerList li::before {
+  content: "✓";
+  position: absolute;
+  left: 2px;
+  color: var(--color-accent);
+  font-weight: 900;
+}
+
+/* Event interpretations */
+.eventItem {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-4);
+  margin-bottom: var(--spacing-3);
+}
+
+.eventHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: var(--spacing-2);
+}
+
+.eventHeader strong {
+  color: var(--color-text-primary);
+  font-size: 0.92rem;
+  font-weight: 850;
+}
+
+/* Calendar Date Grid */
+.calendarDateGrid {
+  display: grid;
+  gap: 8px;
+  margin-top: var(--spacing-3);
+}
+
+.calendarDateGrid article {
+  display: grid;
+  gap: 4px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.02);
+  padding: 12px;
+  transition: all var(--transition-fast);
+}
+
+.calendarDateGrid article:hover {
+  border-color: var(--color-accent);
+  background: rgba(49, 130, 246, 0.04);
+}
+
+.calendarLatestBox {
+  display: grid;
+  gap: 6px;
+  margin-top: var(--spacing-4);
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  border-radius: var(--radius-md);
+  background: rgba(16, 185, 129, 0.05);
+  padding: 14px;
+}
+
+/* Bottom Right Hero Info */
+.heroInfo {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0.2;
+}
+
+.heroCode {
+  font-size: 1.5rem;
+  font-weight: 750;
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.02em;
+}
+
+.heroName {
+  font-size: 5.5rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  letter-spacing: -0.02em;
+}
+
+.heroRate {
+  font-size: 2.2rem;
+  font-weight: 850;
+  margin-top: var(--spacing-2);
+}
+
+@media (max-width: 1024px) {
+  .topToolbar {
+    position: sticky;
+    top: 0;
+    height: auto;
+    padding: 16px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .actionGroup {
+    flex: 1 1 auto;
+    justify-content: space-between;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .quickSearchForm {
+    width: 100%;
+    max-width: none;
+    flex: 1 1 auto;
+  }
+
+  .heroInfo {
+    bottom: 20px;
+    left: 20px;
+  }
+
+  .heroName {
+    font-size: 3.5rem;
+  }
+}
+
+/* Toss Style Grid Calendar Component */
+.calendarMonthSelector {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: var(--spacing-2) 0;
+  background: rgba(0, 0, 0, 0.2);
+  padding: var(--spacing-2) var(--spacing-4);
+  border-radius: var(--radius-round);
+}
+
+.monthNavBtn {
+  background: transparent;
+  border: 0;
+  color: var(--color-text-secondary);
+  font-size: 1.1rem;
+  font-weight: 900;
+  cursor: pointer;
+  padding: 4px 12px;
+  border-radius: var(--radius-round);
+  transition: all var(--transition-fast);
+}
+
+.monthNavBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-text-primary);
+}
+
+.calendarMonthSelector strong {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: var(--color-text-primary);
+}
+
+.calendarNoticeDesc {
+  font-size: 0.76rem;
+  color: var(--color-text-tertiary);
+  line-height: 1.45;
+  margin: 6px 0 12px 0;
+}
+
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-top: 14px;
+  background: rgba(0, 0, 0, 0.15);
+  padding: 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.calendarGridHeaderItem {
+  text-align: center;
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: var(--color-text-tertiary);
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.calendarDayEmpty {
+  height: 34px;
+}
+
+.calendarDayBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-round);
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+  font-weight: 800;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.calendarDayAvailable:hover {
+  background: rgba(49, 130, 246, 0.1);
+  border-color: rgba(49, 130, 246, 0.25);
+  color: var(--color-text-primary);
+  transform: translateY(-1px);
+}
+
+.calendarDayHasBrief {
+  background: rgba(49, 130, 246, 0.06);
+  border: 1px solid rgba(49, 130, 246, 0.15);
+  color: var(--color-accent);
+  cursor: pointer;
+  position: relative;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.calendarDayHasBrief:hover {
+  background: var(--color-accent);
+  color: var(--color-text-primary) !important;
+  box-shadow: 0 4px 12px rgba(49, 130, 246, 0.4);
+  transform: translateY(-1px);
+}
+
+.calendarDayHasBrief:active {
+  transform: scale(0.92);
+}
+
+.calendarDayToday {
+  background: var(--color-accent) !important;
+  color: var(--color-text-primary) !important;
+  box-shadow: 0 4px 12px rgba(49, 130, 246, 0.4);
+  border-color: var(--color-accent) !important;
+}
+
+.calendarEmpty {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--color-text-tertiary);
+  padding: 32px 0;
+}
+
+/* dropdownRight 짤림 방지 보정 */
+.dropdownRight {
+  position: fixed !important;
+  top: 88px !important;
+  right: 24px !important;
+  left: auto !important;
+  z-index: 5000;
+  transform-origin: top right !important;
+}
+
+@media (max-width: 1024px) {
+  .dropdownPanel {
+    position: fixed !important;
+    top: clamp(126px, 18dvh, 164px) !important;
+    left: 16px !important;
+    right: 16px !important;
+    width: auto !important;
+    max-height: calc(100dvh - 190px);
+    z-index: 2800;
+    transform-origin: top center !important;
+  }
+
+  .dropdownRight {
+    left: 16px !important;
+    right: 16px !important;
+  }
+}
+
+/* 하단 정중앙 AI로 학습하기 플로팅 박스 */
+.learningFloatingBox {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  pointer-events: auto;
+}
+
+.learningFloatingBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 26px;
+  background: linear-gradient(135deg, #3182f6 0%, #1c5fcb 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-round);
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 850;
+  box-shadow: 0 8px 30px rgba(49, 130, 246, 0.4), 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.learningFloatingBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(49, 130, 246, 0.5), 0 4px 12px rgba(49, 130, 246, 0.2);
+  filter: brightness(1.1);
+}
+
+.learningFloatingBtn:active {
+  transform: translateY(1px) scale(0.95);
+}
+
+/* AI로 학습하기 용어사전 모달 본문 */
+.learningModal {
+  position: relative;
+  background: rgba(19, 24, 36, 0.98);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-6);
+  width: 580px;
+  max-width: 90vw;
+  max-height: 85vh; /* 스크롤 높이 제한으로 화면 짤림 방지 */
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-float);
+  animation: springUp var(--transition-normal) forwards;
+  pointer-events: auto;
+  overflow: hidden;
+}
+
+.learningModalBody {
+  flex: 1;
+  overflow-y: auto; /* 내부 스크롤 제공 */
+  padding-right: 6px;
+  margin-top: var(--spacing-2);
+}
+
+/* 스크롤바 미려하게 꾸미기 */
+.learningModalBody::-webkit-scrollbar,
+.learningExplanationModal::-webkit-scrollbar {
+  width: 6px;
+}
+.learningModalBody::-webkit-scrollbar-thumb,
+.learningExplanationModal::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+.learningModalBody::-webkit-scrollbar-thumb:hover,
+.learningExplanationModal::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.learningIntro {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+  margin-bottom: var(--spacing-5);
+  word-break: keep-all;
+}
+
+.learningIntro strong {
+  color: var(--color-accent);
+  font-weight: 800;
+}
+
+.termButtonGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: var(--spacing-5);
+}
+
+@media (max-width: 768px) {
+  .termButtonGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .termButtonGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+
+  .learningExplanationItem {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
+
+.termBubbleBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 6px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.termBubbleBtn:hover {
+  background: rgba(49, 130, 246, 0.08);
+  border-color: rgba(49, 130, 246, 0.2);
+  transform: translateY(-1px);
+}
+
+.termBubbleBtnActive {
+  background: rgba(49, 130, 246, 0.15) !important;
+  border-color: var(--color-accent) !important;
+  box-shadow: 0 0 12px rgba(49, 130, 246, 0.25);
+}
+
+.termBubbleBtn strong {
+  color: var(--color-text-primary);
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.termBubbleBtn span {
+  color: var(--color-text-tertiary);
+  font-size: 0.72rem;
+  font-weight: 750;
+  margin-top: 3px;
+}
+
+.termBubbleBtnActive strong {
+  color: var(--color-accent);
+}
+
+.termBubbleBtnActive span {
+  color: var(--color-accent);
+  opacity: 0.8;
+}
+
+.learningResultBox {
+  min-height: 140px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  word-break: keep-all;
+}
+
+.learningPlaceholder {
+  font-size: 0.82rem;
+  color: var(--color-text-tertiary);
+  text-align: center;
+}
+
+.learningSuccessBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  animation: springUp var(--transition-fast) forwards;
+}
+
+.learningSuccessBox h4 {
+  color: var(--color-accent);
+  font-size: 0.95rem;
+  font-weight: 850;
+}
+
+.learningExplanationText {
+  color: var(--color-text-primary);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  font-weight: 750;
+}
+
+.learningSpinnerBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: var(--color-text-secondary);
+  font-size: 0.82rem;
+  font-weight: 750;
+  text-align: center;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(49, 130, 246, 0.2);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 2차 뜻풀이 모달창 특수 스타일 */
+.explanationModalLayer {
+  z-index: 4000 !important; /* 1차 모달(z-index: 3000)보다 높게 주어 가려짐 해결 */
+}
+
+.learningExplanationModal {
+  width: 500px !important;
+  max-width: 85vw !important;
+  max-height: 80vh !important; /* 화면 짤림 방지를 위한 높이 제한 */
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  background: rgba(22, 28, 42, 0.99) !important;
+  border-color: rgba(49, 130, 246, 0.3) !important;
+  box-shadow: 0 12px 50px rgba(0, 0, 0, 0.5), 0 0 15px rgba(49, 130, 246, 0.15) !important;
+}
+
+.learningExplanationBody {
+  min-height: 180px;
+  max-height: min(58vh, 520px);
+  display: block;
+  word-break: keep-all;
+  white-space: normal;
+}
+
+.learningExplanationItem {
+  display: grid;
+  grid-template-columns: 86px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.learningExplanationItem:last-child {
+  border-bottom: 0;
+}
+
+.learningExplanationItem b {
+  color: var(--color-accent);
+  font-size: 0.78rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.learningExplanationItem p {
+  margin: 0;
+  min-width: 0;
+  color: var(--color-text-primary);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  font-weight: 750;
+  word-break: keep-all;
+  white-space: normal;
+}
+
+.learningSourceLimit {
+  font-size: 0.74rem;
+  color: var(--color-text-tertiary);
+  margin-top: var(--spacing-4);
+  line-height: 1.45;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: var(--spacing-3);
+  word-break: keep-all;
+}
+
+.explanationModalFooter {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--spacing-5);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: var(--spacing-4);
+}
+
+.modalCloseBtn {
+  padding: 10px 24px;
+  background: var(--color-accent);
+  border: 0;
+  border-radius: var(--radius-md);
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 850;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: 0 4px 12px rgba(49, 130, 246, 0.3);
+}
+
+.modalCloseBtn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.modalCloseBtn:active {
+  transform: translateY(1px);
+}
+
+.learningFooterNotice {
+  font-size: 0.74rem;
+  color: var(--color-text-tertiary);
+  text-align: center;
+  margin-top: var(--spacing-4);
+}
+
+/* 누락된 모달 필수 레이아웃 스타일 탑재 */
+.briefModalLayer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 13, 20, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn var(--transition-fast) forwards;
+}
+
+.briefModal {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  width: 90%;
+  max-width: 580px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-float);
+  animation: springUp var(--transition-normal) forwards;
+  overflow: hidden;
+}
+
+.briefModalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-5) var(--spacing-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.briefModalHeader div {
+  display: grid;
+  gap: 4px;
+}
+
+.briefModalHeader span {
+  font-size: 0.76rem;
+  color: var(--color-text-tertiary);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.briefModalHeader strong {
+  font-size: 1.1rem;
+  color: var(--color-text-primary);
+  font-weight: 900;
+}
+
+.briefModalHeader button {
+  padding: 8px 18px;
+  font-size: 0.84rem;
+  font-weight: 850;
+  color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.briefModalHeader button:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.briefTextBlock {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-6);
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+  white-space: pre-wrap;
+  word-break: break-all;
+  font-family: inherit;
+}
+
+.briefModalNote {
+  font-size: 0.74rem;
+  color: var(--color-text-tertiary);
+  padding: var(--spacing-4) var(--spacing-6);
+  background: rgba(0, 0, 0, 0.15);
+  border-top: 1px solid var(--color-border);
+  line-height: 1.45;
+}
+
+.themeToggleBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-round);
+  font-size: 1.15rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.themeToggleBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px var(--color-accent-glow);
+}
+
+.themeToggleBtn:active {
+  transform: scale(0.95);
+}
+
+:global([data-theme="light"]) .topToolbar {
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+}
+
+:global([data-theme="light"]) .actionBtn {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(25, 31, 40, 0.08);
+  color: var(--color-text-primary);
+}
+
+:global([data-theme="light"]) .actionBtn:hover,
+:global([data-theme="light"]) .actionBtnActive {
+  background: #ffffff;
+  border-color: rgba(49, 130, 246, 0.35);
+}
+
+:global([data-theme="light"]) .intervalGroup,
+:global([data-theme="light"]) .quickSearchForm,
+:global([data-theme="light"]) .calendarMonthSelector,
+:global([data-theme="light"]) .calendarGrid {
+  background: rgba(25, 31, 40, 0.04);
+  border-color: rgba(25, 31, 40, 0.08);
+}
+
+:global([data-theme="light"]) .dropdownPanel,
+:global([data-theme="light"]) .learningModal,
+:global([data-theme="light"]) .learningExplanationModal {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border-color: rgba(25, 31, 40, 0.08) !important;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12) !important;
+}
+
+:global([data-theme="light"]) .calendarDayBtn,
+:global([data-theme="light"]) .termBubbleBtn {
+  background: rgba(25, 31, 40, 0.03);
+  border-color: rgba(25, 31, 40, 0.06);
+}
+
+:global([data-theme="light"]) .briefModalLayer {
+  background: rgba(15, 23, 42, 0.2);
+}
+
+:global([data-theme="light"]) .briefModalHeader button,
+:global([data-theme="light"]) .themeToggleBtn {
+  background: #ffffff;
+  border-color: rgba(25, 31, 40, 0.08);
+  color: var(--color-text-primary);
+}
+
+:global([data-theme="light"]) .briefModalNote {
+  background: rgba(25, 31, 40, 0.04);
+}

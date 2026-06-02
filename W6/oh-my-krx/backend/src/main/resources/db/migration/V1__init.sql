@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS daily_summaries (
+  summary_date DATE NOT NULL,
+  top_gainer VARCHAR(255) NULL,
+  top_loser VARCHAR(255) NULL,
+  most_mentioned VARCHAR(255) NULL,
+  kospi_pick VARCHAR(255) NULL,
+  kosdaq_pick VARCHAR(255) NULL,
+  raw_notes TEXT NULL,
+  created_at TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  updated_at TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  PRIMARY KEY (summary_date)
+);
