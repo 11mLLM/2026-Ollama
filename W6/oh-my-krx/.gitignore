@@ -36,6 +36,7 @@ backend/.gradle/
 build/
 *.class
 *.jar
+!backend/gradle/wrapper/gradle-wrapper.jar
 *.war
 *.ear
 hs_err_pid*
