@@ -1,0 +1,59 @@
+[
+  {
+    "name": "Crucial P3 Plus NVMe SSD 1TB",
+    "category": "storage",
+    "tier": "budget",
+    "capacity_tb": 1,
+    "interface": "PCIe 4.0 NVMe",
+    "budget_level": "low",
+    "use_cases": ["general", "development", "gaming"],
+    "strengths": ["저렴한 1TB NVMe", "일반 사용", "게임 저장공간"],
+    "cautions": ["대용량 영상 편집 캐시용으로는 상급 SSD가 더 안정적이다."]
+  },
+  {
+    "name": "Samsung 990 EVO Plus NVMe SSD 1TB",
+    "category": "storage",
+    "tier": "mainstream",
+    "capacity_tb": 1,
+    "interface": "PCIe 4.0 x4 / PCIe 5.0 x2 NVMe",
+    "budget_level": "mid",
+    "use_cases": ["development", "gaming", "video_editing"],
+    "strengths": ["균형 좋은 메인 SSD", "개발 프로젝트", "게임과 편집 병행"],
+    "cautions": ["최고 성능 작업용이면 990 Pro, SN850X, T500도 비교한다."],
+    "source_url": "https://download.semiconductor.samsung.com/resources/data-sheet/samsung_nvme_ssd_990_evo_plus_datasheet_rev.1.0.pdf"
+  },
+  {
+    "name": "WD Black SN850X NVMe SSD 1TB",
+    "category": "storage",
+    "tier": "performance",
+    "capacity_tb": 1,
+    "interface": "PCIe 4.0 NVMe",
+    "budget_level": "high",
+    "use_cases": ["gaming", "development", "video_editing"],
+    "strengths": ["고성능 PCIe 4.0", "게임 로딩", "작업용 메인 SSD"],
+    "cautions": ["가격이 높으면 mainstream SSD와 체감 차이를 비교한다."]
+  },
+  {
+    "name": "Samsung 990 Pro NVMe SSD 2TB",
+    "category": "storage",
+    "tier": "performance",
+    "capacity_tb": 2,
+    "interface": "PCIe 4.0 NVMe",
+    "budget_level": "high",
+    "use_cases": ["video_editing", "development", "gaming"],
+    "strengths": ["넉넉한 2TB", "고성능 작업", "영상 원본과 프로젝트 저장"],
+    "cautions": ["예산이 빠듯하면 1TB 메인 SSD + 외장 SSD 조합도 고려한다."]
+  },
+  {
+    "name": "Crucial T500 NVMe SSD 2TB",
+    "category": "storage",
+    "tier": "performance",
+    "capacity_tb": 2,
+    "interface": "PCIe 4.0 NVMe",
+    "budget_level": "high",
+    "use_cases": ["video_editing", "gaming", "development"],
+    "strengths": ["크리에이터 작업", "대용량 프로젝트", "고성능 PCIe 4.0"],
+    "cautions": ["노트북 장착 시 발열과 단면/양면 규격을 확인한다."],
+    "source_url": "https://www.crucial.com/"
+  }
+]
