@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OW-MY-COACH · 오버워치 경쟁전 코치</title>
+  <style>
+    :root { --bg:#0f1320; --panel:#171c2e; --bubble-u:#2b6cb0; --bubble-a:#222a42;
+            --accent:#f06414; --text:#e7ecf5; --muted:#8a93ab; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:'Segoe UI',Apple SD Gothic Neo,Malgun Gothic,sans-serif;
+           background:var(--bg); color:var(--text); height:100vh; display:flex; flex-direction:column; }
+    header { background:var(--panel); padding:14px 20px; border-bottom:2px solid var(--accent);
+             display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+    header h1 { font-size:18px; margin:0; letter-spacing:.5px; }
+    header h1 span { color:var(--accent); }
+    .controls { margin-left:auto; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    .controls label { font-size:12px; color:var(--muted); }
+    select, input[type=text] { background:#0c1020; color:var(--text); border:1px solid #2a3252;
+             border-radius:8px; padding:7px 10px; font-size:13px; }
+    #chat { flex:1; overflow-y:auto; padding:20px; display:flex; flex-direction:column; gap:14px; }
+    .msg { max-width:78%; padding:12px 15px; border-radius:14px; line-height:1.55; white-space:pre-wrap;
+           word-break:break-word; font-size:14px; }
+    .msg.user { align-self:flex-end; background:var(--bubble-u); border-bottom-right-radius:4px; }
+    .msg.assistant { align-self:flex-start; background:var(--bubble-a); border-bottom-left-radius:4px; }
+    .meta { font-size:11px; color:var(--muted); margin-bottom:6px; }
+    .sources { margin-top:10px; font-size:11px; color:var(--muted); border-top:1px solid #333c5c; padding-top:6px; }
+    .sources a { color:#7fb0e0; text-decoration:none; word-break:break-all; }
+    .typing { font-style:italic; color:var(--muted); }
+    footer { background:var(--panel); padding:12px 16px; display:flex; gap:10px; border-top:1px solid #2a3252; }
+    #message-input { flex:1; resize:none; height:46px; }
+    #send-btn { background:var(--accent); color:#fff; border:none; border-radius:10px; padding:0 22px;
+                font-weight:600; cursor:pointer; font-size:14px; }
+    #send-btn:disabled { opacity:.5; cursor:not-allowed; }
+    .empty { color:var(--muted); text-align:center; margin-top:40px; font-size:14px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎮 OW-MY-<span>COACH</span></h1>
+    <div class="controls">
+      <label>역할군
+        <select id="role-select">
+          <option value="">미지정</option>
+          <option value="tank">탱커</option>
+          <option value="dps">딜러</option>
+          <option value="support">힐러</option>
+        </select>
+      </label>
+      <label>맵
+        <input type="text" id="map-input" placeholder="예: 왕의 길" size="12" />
+      </label>
+      <button id="reset-btn" style="background:#2a3252;color:#cfd6ea;border:none;border-radius:8px;padding:7px 12px;cursor:pointer;font-size:12px;">초기화</button>
+    </div>
+  </header>
+
+  <div id="chat">
+    <div class="empty" id="empty-hint">오버워치 경쟁전 고민을 물어보세요. 예) "왕의 길에서 무슨 조합 추천해?", "힐러인데 다이브가 힘들어"</div>
+  </div>
+
+  <footer>
+    <textarea id="message-input" placeholder="질문을 입력하세요… (Enter 전송, Shift+Enter 줄바꿈)"></textarea>
+    <button id="send-btn">전송</button>
+  </footer>
+
+  <script>
+    const chat = document.getElementById('chat');
+    const input = document.getElementById('message-input');
+    const sendBtn = document.getElementById('send-btn');
+    const roleSel = document.getElementById('role-select');
+    const mapInput = document.getElementById('map-input');
+    const resetBtn = document.getElementById('reset-btn');
+    const emptyHint = document.getElementById('empty-hint');
+    let history = [];
+
+    function addMessage(role, text, meta, sources) {
+      if (emptyHint) emptyHint.remove();
+      const div = document.createElement('div');
+      div.className = 'msg ' + role;
+      div.setAttribute('data-role', role);
+      if (meta) {
+        const m = document.createElement('div');
+        m.className = 'meta';
+        m.textContent = meta;
+        div.appendChild(m);
+      }
+      const body = document.createElement('div');
+      body.textContent = text;
+      div.appendChild(body);
+      if (sources && sources.length) {
+        const s = document.createElement('div');
+        s.className = 'sources';
+        s.innerHTML = '📚 출처: ' + sources.map(u =>
+          u.startsWith('http') ? `<a href="${u}" target="_blank">${u}</a>` : u).join(' · ');
+        div.appendChild(s);
+      }
+      chat.appendChild(div);
+      chat.scrollTop = chat.scrollHeight;
+      return div;
+    }
+
+    async function send() {
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = '';
+      sendBtn.disabled = true;
+      addMessage('user', text);
+      const thinking = addMessage('assistant', '코치가 생각 중입니다…');
+      thinking.querySelector('div').classList.add('typing');
+      thinking.setAttribute('data-testid', 'thinking');
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message: text,
+            role: roleSel.value || null,
+            map: mapInput.value.trim() || null,
+            history: history
+          })
+        });
+        const data = await res.json();
+        thinking.remove();
+        const meta = `의도:${data.intent} · 역할군:${data.detected_role||'미지정'} · 맵:${data.detected_map||'미지정'}`;
+        const node = addMessage('assistant', data.answer, meta, data.sources);
+        node.setAttribute('data-testid', 'coach-answer');
+        history.push({ role: 'user', content: text });
+        history.push({ role: 'assistant', content: data.answer });
+        history = history.slice(-12);
+      } catch (e) {
+        thinking.remove();
+        addMessage('assistant', '오류가 발생했습니다: ' + e);
+      } finally {
+        sendBtn.disabled = false;
+        input.focus();
+      }
+    }
+
+    sendBtn.addEventListener('click', send);
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+    });
+    resetBtn.addEventListener('click', () => {
+      history = [];
+      chat.innerHTML = '';
+      addMessage('assistant', '대화를 초기화했습니다. 새 질문을 해주세요!');
+    });
+  </script>
+</body>
+</html>

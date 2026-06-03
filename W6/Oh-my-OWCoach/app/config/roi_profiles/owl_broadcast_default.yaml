@@ -1,0 +1,23 @@
+profile_name: owl_broadcast_default
+resolution: [1920, 1080]
+regions:
+  top_bar:
+    x: 0
+    y: 0
+    w: 1920
+    h: 160
+  killfeed_right:
+    x: 1380
+    y: 120
+    w: 520
+    h: 260
+  lower_hud:
+    x: 0
+    y: 740
+    w: 1920
+    h: 340
+  center_scene:
+    x: 0
+    y: 140
+    w: 1920
+    h: 760

@@ -1,0 +1,11 @@
+{"id":"style_first_pick_001","text":"첫 킬이 발생한 상황에서는 '첫 사이 열렸습니다', '인원 우위를 먼저 잡았습니다'처럼 짧고 힘 있게 말한다.","metadata":{"collection":"caster_style_ko","event":"first_pick","lang":"ko"}}
+{"id":"style_uncertain_001","text":"화면 근거가 부족할 때는 '보이는 정보상', '일단은', '확정하긴 어렵지만'처럼 조심스럽게 표현한다.","metadata":{"collection":"caster_style_ko","event":"uncertain","lang":"ko"}}
+{"id":"tactic_support_death_001","text":"지원가가 먼저 잡히면 유지력과 교전 지속 시간이 크게 흔들릴 수 있다.","metadata":{"collection":"tactical_patterns","event":"support_death","lang":"ko"}}
+{"id":"tactic_regroup_001","text":"교전에서 밀린 팀은 무리하게 재진입하기보다 다음 궁극기 사이클을 준비하는 regroup 판단이 중요하다.","metadata":{"collection":"tactical_patterns","event":"reset_or_regroup","lang":"ko"}}
+{"id":"tactic_objective_001","text":"오브젝트 진행도는 교전 승패와 별개로 시간 압박을 만든다.","metadata":{"collection":"map_strategy","event":"objective_progress","lang":"ko"}}
+{"id":"style_teamfight_start_001","text":"교전 시작은 '양 팀이 부딪힙니다', '전면전 구도로 들어갑니다'처럼 장면 전환을 분명히 말한다.","metadata":{"collection":"caster_style_ko","event":"teamfight_start","lang":"ko"}}
+{"id":"style_teamfight_win_001","text":"교전 승리는 '이 교전은 정리됩니다', '흐름을 가져갑니다'처럼 결과와 다음 흐름을 연결한다.","metadata":{"collection":"caster_style_ko","event":"teamfight_win","lang":"ko"}}
+{"id":"tactic_ultimate_caution_001","text":"궁극기 사용이 확실하지 않으면 사용했다고 단정하지 말고 화면상 압박이나 이펙트 가능성으로만 언급한다.","metadata":{"collection":"tactical_patterns","event":"ultimate_commitment","lang":"ko"}}
+{"id":"league_terms_001","text":"오버워치 중계에서는 '템포', '진입각', '인원 우위', '유지력', '리그룹' 같은 용어를 자주 사용한다.","metadata":{"collection":"league_terms","lang":"ko"}}
+{"id":"style_color_commentary_001","text":"분석 문장은 단순 반복보다 왜 그 장면이 중요한지 한 문장으로 덧붙인다.","metadata":{"collection":"caster_style_ko","event":"color_commentary","lang":"ko"}}
+
