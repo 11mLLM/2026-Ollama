@@ -3,7 +3,9 @@
 EU 화장품 규정(CPR 1223/2009)을 로컬 LLM으로 검색하는 **Agentic RAG 챗봇**.  
 EUR-Lex RSS 피드를 감지해 새 규제 문서를 자동으로 다운로드 · 반영합니다.
 
-> ⚠️ 참고용 시스템입니다. 정확한 규제 해석은 전문가에게 문의하세요.
+
+<img width="961" height="779" alt="스크린샷 2026-06-02 오후 11 24 40" src="https://github.com/user-attachments/assets/009383a9-cf68-40c6-9379-2ef299a5fadd" />
+
 
 ---
 
@@ -82,7 +84,8 @@ streamlit run app.py
 
 브라우저에서 `http://localhost:8501` 접속
 
-### 5) 자동 업데이트 실행 (선택)
+### 5) 자동 업데이트 실행
+
 
 EUR-Lex에서 새 규제 문서를 자동으로 감지·반영하려면:
 
