@@ -1,0 +1,36 @@
+models:
+  qwen_vlm: "qwen3.5:4b"
+  exaone: "hf.co/LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct-GGUF:Q4_K_M"
+runtime:
+  max_frames: 0
+  sample_fps: 10.0
+  segment_seconds: 10
+  model_frame_limit: 6
+  model_frame_stride: 10
+paths:
+  input_videos: "input/videos"
+  frames: "data/frames"
+  crops: "data/crops"
+  event_candidates: "data/event_candidates"
+  timelines: "data/timelines"
+  output: "output"
+rag:
+  # Embedding model served by Ollama. bge-m3 is strongly multilingual (Korean);
+  # nomic-embed-text is lighter but weaker on Korean. Pull with `ollama pull <model>`.
+  embed_model: "nomic-embed-text"
+  chroma_collection: "owcs_kb"
+  # Hybrid retrieval blends semantic similarity with literal keyword overlap.
+  # Lower semantic_weight leans on exact hero/player name matches (anti-hallucination).
+  semantic_weight: 0.15
+  top_k_per_query: 3
+  max_docs_per_segment: 8
+  # Collections available for the agentic planner to route queries to.
+  collections:
+    - hero_abilities
+    - map_strategy
+    - league_info
+    - teams
+    - players
+    - league_terms
+    - tactical_patterns
+    - caster_style_ko
