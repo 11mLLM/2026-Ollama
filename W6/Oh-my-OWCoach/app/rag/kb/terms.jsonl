@@ -1,0 +1,9 @@
+{"id":"term_dive","text":"다이브(dive)는 윈스턴, 디바, 겐지, 트레이서 같은 기동성 영웅으로 적 후방 지원가를 빠르게 덮치는 조합/전술이다.","metadata":{"collection":"league_terms","term":"dive","lang":"ko","source":"seed_general_knowledge"}}
+{"id":"term_poke","text":"포크(poke)는 직접 교전 전에 원거리 견제로 상대 체력과 자원을 깎아 한타 전 우위를 만드는 운영이다.","metadata":{"collection":"league_terms","term":"poke","lang":"ko","source":"seed_general_knowledge"}}
+{"id":"term_brawl","text":"브롤(brawl)은 근접 지속 화력과 유지력으로 정면 난전을 강제하는 조합/운영이다.","metadata":{"collection":"league_terms","term":"brawl","lang":"ko","source":"seed_general_knowledge"}}
+{"id":"term_ult_economy","text":"궁극기 경제(ult economy)는 양 팀의 궁극기 보유 수와 사용 타이밍 차이를 뜻하며, 궁극기 우위가 한타 주도권으로 이어진다.","metadata":{"collection":"league_terms","term":"ult_economy","lang":"ko","source":"seed_general_knowledge"}}
+{"id":"term_pick","text":"픽(pick)은 한타 시작 전이나 도중에 핵심 한 명을 먼저 잘라 인원 우위를 만드는 플레이다. 첫 픽은 한타의 문을 여는 신호가 된다.","metadata":{"collection":"league_terms","term":"pick","lang":"ko","source":"seed_general_knowledge"}}
+{"id":"term_offangle","text":"오프앵글(off-angle)은 주 전선과 다른 각도에서 시야를 잡아 상대 진형을 흔드는 위치 선정이다.","metadata":{"collection":"league_terms","term":"off_angle","lang":"ko","source":"seed_general_knowledge"}}
+{"id":"term_backline","text":"백라인(backline)은 후방 지원가와 원거리 딜러 진영을 가리키며, 백라인이 무너지면 팀 유지력이 급격히 흔들린다.","metadata":{"collection":"league_terms","term":"backline","lang":"ko","source":"seed_general_knowledge"}}
+{"id":"term_staggered","text":"스태거(staggered)는 한 명이 따로 죽거나 부활 합류가 어긋나 인원이 분산된 상태로, 다음 한타에서 수적 손해를 본다.","metadata":{"collection":"league_terms","term":"stagger","lang":"ko","source":"seed_general_knowledge"}}
+{"id":"role_composition","text":"오버워치 e스포츠 표준 구성은 돌격(탱커) 1명, 공격(DPS) 2명, 지원(서포터) 2명으로 총 5명이다. OWCS 경기도 5대5로 진행된다.","metadata":{"collection":"league_terms","term":"team_composition","lang":"ko","source":"seed_general_knowledge"}}

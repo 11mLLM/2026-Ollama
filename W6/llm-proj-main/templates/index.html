@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>벼락치기 한계 계산기</title>
+  <style>
+    :root {
+      --bg-a: #f8f3ea;
+      --bg-b: #e2eef9;
+      --ink: #1f2937;
+      --brand: #0f766e;
+      --brand-2: #115e59;
+      --card: #ffffffd9;
+      --line: #d7dde4;
+      --assistant: #eef6ff;
+      --user: #e9f9f0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Pretendard", "Noto Sans KR", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 10%, var(--bg-a), transparent 45%),
+        radial-gradient(circle at 90% 0%, var(--bg-b), transparent 40%),
+        #f2f5f7;
+      display: grid;
+      place-items: center;
+      padding: 16px;
+    }
+    .shell {
+      width: min(860px, 100%);
+      background: var(--card);
+      border: 1px solid #fff;
+      border-radius: 22px;
+      box-shadow: 0 16px 30px #00000014;
+      overflow: hidden;
+    }
+    .head {
+      padding: 18px 18px 12px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #ffffffcc 0%, #ffffff80 100%);
+    }
+    .title {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 800;
+    }
+    .sub {
+      margin: 6px 0 0;
+      color: #4b5563;
+      font-size: 14px;
+    }
+    .chat {
+      padding: 14px;
+      height: min(62vh, 620px);
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .msg {
+      max-width: min(78%, 620px);
+      width: fit-content;
+      padding: 11px 13px;
+      border-radius: 14px;
+      line-height: 1.42;
+      font-size: 14px;
+      border: 1px solid #e6ebf0;
+      white-space: pre-wrap;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
+    .assistant { background: var(--assistant); justify-self: start; }
+    .user { background: var(--user); justify-self: end; }
+    .composer {
+      border-top: 1px solid var(--line);
+      padding: 12px;
+      display: grid;
+      gap: 8px;
+      background: #ffffffd9;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+    }
+    input, select, button {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid #d4dbe3;
+      padding: 11px;
+      font-size: 14px;
+    }
+    button {
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      padding-inline: 18px;
+    }
+    button:hover { background: var(--brand-2); }
+    .hint { font-size: 12px; color: #6b7280; margin: 0; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      border: 1px solid #c8d3dd;
+      background: #fff;
+      color: #1f2937;
+      border-radius: 999px;
+      padding: 7px 11px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .hidden-form { display: none; }
+    @media (max-width: 760px) {
+      .chat { height: 58vh; }
+      .msg { max-width: 94%; }
+    }
+  </style>
+</head>
+<body>
+  <section class="shell">
+    <header class="head">
+      <h1 class="title">벼락치기 한계 계산기</h1>
+      <p class="sub">질문에 답하면, 내가 얼마나 미룰 수 있는지 계산해줄게.</p>
+    </header>
+
+    <div id="chat" class="chat"></div>
+
+    <div class="composer">
+      <div id="chips" class="chips"></div>
+      <div class="row">
+        <input id="answerInput" placeholder="여기에 답변 입력" autocomplete="off" />
+        <button id="nextBtn" type="button">다음</button>
+      </div>
+      <p id="hint" class="hint"></p>
+    </div>
+
+    <form id="hiddenForm" class="hidden-form" action="/analyze" method="post">
+      <input name="exam_name" />
+      <input name="exam_date" />
+      <input name="baseline_score" />
+      <input name="target_score" />
+      <input name="progress_pct" />
+      <input name="weekday_hours" />
+      <input name="weekend_hours" />
+      <input name="cram_tolerance" />
+    </form>
+  </section>
+
+  <script>
+    const steps = [
+      { key: "exam_name", q: "어떤 시험 준비 중이야?", hint: "예: TOEIC, JLPT N2, 한국사능력검정시험" },
+      { key: "exam_date", q: "시험 시점은 언제쯤이야?", hint: "예: 3주 뒤 / 다음달 말 / 2026-09-15", placeholder: "예: 3주 뒤" },
+      { key: "baseline_score", q: "지금 실력은 어느 정도라고 느껴?", hint: "숫자 없이 설명해도 돼", chips: ["거의 처음이야", "기본은 있는데 약해", "중간 이상은 돼"] },
+      { key: "target_score", q: "목표 수준은 어느 정도야?", hint: "예: 합격권 / 안정권 / 고득점", chips: ["합격만 하면 돼", "안정권까지 가고 싶어", "고득점 노릴래"] },
+      { key: "progress_pct", q: "현재 공부 진행 상태는 어때?", hint: "진도 체감으로 말해줘", chips: ["아직 거의 시작 전", "조금씩 하고 있어", "절반 넘게 했어"] },
+      { key: "weekday_hours", q: "평일엔 보통 어느 정도 공부할 수 있어?", hint: "예: 짧게 / 2~3시간 정도 / 많이", chips: ["짧게만 가능", "2~3시간은 가능", "꽤 많이 가능"] },
+      { key: "weekend_hours", q: "주말엔 어느 정도 가능해?", hint: "예: 평일보다 조금 더 / 몰아서 가능", chips: ["평일이랑 비슷", "평일보다 조금 더", "주말엔 몰아서 가능"] },
+      { key: "cram_tolerance", q: "마감 직전에 몰입하는 스타일이야?", hint: "체력/집중 기준으로 편하게 말해줘", chips: ["금방 지치는 편", "보통", "몰입하면 버티는 편"] }
+    ];
+
+    const answers = {};
+    let idx = 0;
+
+    const chat = document.getElementById("chat");
+    const input = document.getElementById("answerInput");
+    const nextBtn = document.getElementById("nextBtn");
+    const hint = document.getElementById("hint");
+    const chips = document.getElementById("chips");
+    const hiddenForm = document.getElementById("hiddenForm");
+
+    function addMsg(role, text) {
+      const el = document.createElement("div");
+      el.className = `msg ${role}`;
+      el.textContent = text;
+      chat.appendChild(el);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function renderStep() {
+      if (idx >= steps.length) {
+        addMsg("assistant", "좋아, 계산하러 갈게.");
+        for (const step of steps) {
+          hiddenForm.elements[step.key].value = answers[step.key];
+        }
+        hiddenForm.submit();
+        return;
+      }
+
+      const step = steps[idx];
+      addMsg("assistant", step.q);
+      hint.textContent = step.hint || "";
+      input.value = "";
+      input.placeholder = step.placeholder || "답변 입력";
+      renderChips(step.chips || []);
+      input.focus();
+    }
+
+    function renderChips(values) {
+      chips.innerHTML = "";
+      for (const value of values) {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "chip";
+        b.textContent = value;
+        b.onclick = () => {
+          input.value = value;
+          submitCurrent();
+        };
+        chips.appendChild(b);
+      }
+    }
+
+    function valid(step, value) {
+      if (!value) return false;
+      return true;
+    }
+
+    function submitCurrent() {
+      const step = steps[idx];
+      const value = input.value.trim();
+      if (!valid(step, value)) {
+        addMsg("assistant", "입력 형식을 한 번만 다시 확인해줘.");
+        return;
+      }
+
+      answers[step.key] = value;
+      addMsg("user", value);
+      idx += 1;
+      renderStep();
+    }
+
+    nextBtn.addEventListener("click", submitCurrent);
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        submitCurrent();
+      }
+    });
+
+    addMsg("assistant", "안녕, 네 상황을 짧게 물어보고 바로 계산해볼게.");
+    renderStep();
+  </script>
+</body>
+</html>

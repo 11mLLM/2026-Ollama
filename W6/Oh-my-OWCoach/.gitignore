@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.claude/
+.venv/
+venv/
+data/frames/
+data/crops/
+data/event_candidates/
+data/timelines/
+output/*
+!output/.gitkeep
+!output/logs/
+!output/logs/.gitkeep
+input/videos/*
+!input/videos/.gitkeep
+app/rag/chroma_db/

@@ -1,0 +1,66 @@
+.button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+  padding: 8px 16px 8px 8px;
+  border-radius: var(--radius-round);
+  box-shadow: var(--shadow-float);
+  color: var(--color-text-secondary);
+  transition: all var(--transition-normal);
+}
+
+.iconWrapper {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.button:hover {
+  color: var(--color-text-primary);
+  background: rgba(30, 30, 30, 0.8);
+}
+
+.button.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+  box-shadow: var(--shadow-glow);
+}
+
+.button.active .iconWrapper {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+  .button {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .iconWrapper {
+    width: 28px;
+    height: 28px;
+  }
+
+  .label {
+    display: none;
+  }
+}

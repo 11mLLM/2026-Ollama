@@ -1,0 +1,43 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: kr-stock-daily-brief
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:kr_stock_daily_brief}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: ${DB_USER:app}
+    password: ${DB_PASSWORD:app}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  flyway:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+app:
+  publicKey: ${PUBLIC_KEY:}
+  adminKey: ${ADMIN_KEY:}
+  adminTrustedCidrs: ${APP_ADMIN_TRUSTED_CIDRS:127.0.0.1/32,::1/128,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16}
+
+marketdata:
+  provider: ${MARKETDATA_PROVIDER:placeholder}
+  baseUrl: ${MARKETDATA_BASE_URL:http://marketdata:8000}
+
+ai:
+  baseUrl: ${AI_SERVICE_BASE_URL:http://ai-service:8100}
+  connectTimeoutSeconds: ${AI_CLIENT_CONNECT_TIMEOUT_SECONDS:3}
+  readTimeoutSeconds: ${AI_CLIENT_READ_TIMEOUT_SECONDS:28}
+
+discord:
+  webhookUrl: ${DISCORD_WEBHOOK_URL:}
+  threadId: ${DISCORD_THREAD_ID:}

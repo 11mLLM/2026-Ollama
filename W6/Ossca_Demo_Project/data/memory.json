@@ -1,0 +1,46 @@
+[
+  {
+    "name": "DDR5 16GB 5600~6000 듀얼채널 키트",
+    "category": "memory",
+    "tier": "entry",
+    "capacity_gb": 16,
+    "type": "DDR5",
+    "budget_level": "low",
+    "use_cases": ["general", "light_development"],
+    "strengths": ["문서 작업", "가벼운 개발", "초기 비용 절감"],
+    "cautions": ["Docker, VM, 영상 편집, 대형 IDE에는 32GB가 더 안정적이다."]
+  },
+  {
+    "name": "DDR5 32GB 6000 CL30 듀얼채널 키트",
+    "category": "memory",
+    "tier": "mainstream",
+    "capacity_gb": 32,
+    "type": "DDR5",
+    "budget_level": "mid",
+    "use_cases": ["development", "gaming", "video_editing"],
+    "strengths": ["AM5 데스크탑의 균형 좋은 선택", "개발/게임/편집 병행", "멀티태스킹"],
+    "cautions": ["메인보드 QVL과 EXPO/XMP 지원을 확인한다."]
+  },
+  {
+    "name": "DDR5 64GB 5600~6000 듀얼채널 키트",
+    "category": "memory",
+    "tier": "performance",
+    "capacity_gb": 64,
+    "type": "DDR5",
+    "budget_level": "high",
+    "use_cases": ["heavy_development", "video_editing", "ai", "3d"],
+    "strengths": ["VM/Docker 다중 실행", "4K 영상 편집", "대형 프로젝트"],
+    "cautions": ["게임만 목적이면 32GB가 더 합리적인 경우가 많다."]
+  },
+  {
+    "name": "노트북용 LPDDR5X 32GB 탑재 모델",
+    "category": "memory",
+    "tier": "mobile_mainstream",
+    "capacity_gb": 32,
+    "type": "LPDDR5X",
+    "budget_level": "mid",
+    "use_cases": ["laptop_development", "mobile_productivity"],
+    "strengths": ["노트북 개발", "배터리 효율", "휴대용 생산성"],
+    "cautions": ["대부분 온보드라 구매 후 업그레이드가 어렵다."]
+  }
+]

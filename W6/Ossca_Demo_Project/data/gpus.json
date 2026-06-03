@@ -1,0 +1,68 @@
+[
+  {
+    "name": "NVIDIA GeForce RTX 5060",
+    "category": "gpu",
+    "tier": "entry_mid",
+    "vram_gb": 8,
+    "budget_level": "mid",
+    "use_cases": ["gaming", "video_editing", "general"],
+    "strengths": ["FHD 게임", "DLSS 4", "NVIDIA 인코더/크리에이터 앱 호환성"],
+    "cautions": ["최신 고해상도 게임이나 AI 작업에는 VRAM 8GB가 제한될 수 있다."],
+    "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"
+  },
+  {
+    "name": "NVIDIA GeForce RTX 5060 Ti 16GB",
+    "category": "gpu",
+    "tier": "mainstream",
+    "vram_gb": 16,
+    "budget_level": "mid",
+    "use_cases": ["gaming", "video_editing", "light_ai"],
+    "strengths": ["FHD/QHD 게임", "16GB VRAM", "영상 편집과 CUDA 앱"],
+    "cautions": ["가격이 RTX 5070에 가까우면 상위 GPU와 비교한다."],
+    "source_url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"
+  },
+  {
+    "name": "NVIDIA GeForce RTX 5070",
+    "category": "gpu",
+    "tier": "performance",
+    "vram_gb": 12,
+    "budget_level": "high",
+    "use_cases": ["gaming", "video_editing", "ai", "3d"],
+    "strengths": ["QHD 게임", "DLSS 4", "CUDA 기반 작업"],
+    "cautions": ["AI/대형 텍스처 작업은 VRAM 용량도 함께 확인한다."],
+    "source_url": "https://www.nvidia.com/"
+  },
+  {
+    "name": "AMD Radeon RX 9060 XT 16GB",
+    "category": "gpu",
+    "tier": "mainstream",
+    "vram_gb": 16,
+    "budget_level": "mid",
+    "use_cases": ["gaming", "video_editing"],
+    "strengths": ["FHD/QHD 게임", "16GB VRAM", "가격 대비 래스터 성능"],
+    "cautions": ["CUDA가 필요한 AI/일부 크리에이터 앱은 NVIDIA가 유리할 수 있다."],
+    "source_url": "https://www.amd.com/en/products/graphics/desktops/radeon/9000-series/amd-radeon-rx-9060xt.html"
+  },
+  {
+    "name": "AMD Radeon RX 9070",
+    "category": "gpu",
+    "tier": "performance",
+    "vram_gb": 16,
+    "budget_level": "high",
+    "use_cases": ["gaming", "video_editing"],
+    "strengths": ["QHD 게임", "16GB VRAM", "상급 AMD 구성"],
+    "cautions": ["레이 트레이싱과 일부 AI 앱은 NVIDIA 대안을 비교한다."],
+    "source_url": "https://www.amd.com/"
+  },
+  {
+    "name": "AMD Radeon RX 9070 XT",
+    "category": "gpu",
+    "tier": "high",
+    "vram_gb": 16,
+    "budget_level": "premium",
+    "use_cases": ["gaming", "video_editing", "3d"],
+    "strengths": ["고성능 QHD/4K 게임", "16GB VRAM", "상급 AMD 그래픽"],
+    "cautions": ["전체 예산 200만원 이하에서는 다른 부품 예산을 압박할 수 있다."],
+    "source_url": "https://www.amd.com/"
+  }
+]
